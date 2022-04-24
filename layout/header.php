@@ -46,7 +46,7 @@
                                 <div id="dropdown-user" class="dropdown dropdown-extended fl-right">
                                     <button class="dropdown-toggle clearfix" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <div id="thumb-circle" class="fl-left">
-                                            <img src="admin/public/images/img-admin.png">
+                                            <img src="admin/public/images/user-32.png">
                                         </div>
                                         <h3 id="account" class="fl-right">
                                             <?php if(!empty(user_login())) echo user_login();?>
