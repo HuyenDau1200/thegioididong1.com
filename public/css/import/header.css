@@ -20,6 +20,11 @@
     padding: 10px 15px;
 }
 #head-top #main-menu li:last-child a{ padding-right: 0!important;}
+#head-top #account {
+    padding: 10px 0px 10px 10px;
+    color: white;
+    font-weight: bold;
+}
 #head-body{ background: #26b0d9;}
 #head-body #logo{
     display: block;

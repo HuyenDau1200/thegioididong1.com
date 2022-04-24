@@ -53,9 +53,9 @@ function update_user_login($data,$username){
 function info_account()
 {
     $list_users = db_fetch_array("SELECT * FROM `tbl_users`");
-    if (isset($_SESSION['is_login'])) {
+    if (isset($_SESSION['admin_is_login'])) {
         foreach ($list_users as $user) {
-            if ($user['username'] == $_SESSION['user_login']) {
+            if ($user['username'] == $_SESSION['admin_login']) {
                 return $user;
             }
         }
@@ -121,7 +121,7 @@ function delete_user($email)
 #Kiểm tra đăng nhập
 function check_login($username, $password)
 {
-    $check_login = db_num_rows("SELECT * FROM `tbl_users` WHERE `username`= '{$username}' AND `password`='{$password}' AND `role`=1");
+    $check_login = db_num_rows("SELECT * FROM `tbl_users` WHERE `username`= '{$username}' AND `password`='{$password}' AND `role`='1'");
     if ($check_login > 0) {
         return true;
     }

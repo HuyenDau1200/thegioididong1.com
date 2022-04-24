@@ -41,7 +41,26 @@
                                     </li>
                                 </ul>
                             </div>
-                            <a href="?mod=users&action=login" title="" id="payment-link" class="fl-right">Đăng nhập</a>
+                            <div>
+                                <?php if(user_login()) {?>
+                                <div id="dropdown-user" class="dropdown dropdown-extended fl-right">
+                                    <button class="dropdown-toggle clearfix" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <div id="thumb-circle" class="fl-left">
+                                            <img src="admin/public/images/img-admin.png">
+                                        </div>
+                                        <h3 id="account" class="fl-right">
+                                            <?php if(!empty(user_login())) echo user_login();?>
+                                        </h3>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="?mod=users&action=update" title="Thông tin cá nhân">Thông tin tài khoản</a></li>
+                                        <li><a href="?mod=users&action=logout" title="Thoát">Thoát</a></li>
+                                    </ul>
+                                </div>
+                                <?php } else { ?>
+                                <a href="?mod=users&action=login" title="" id="payment-link" class="fl-right">Đăng nhập</a>
+                                <?php }?>
+                            </div>
                         </div>
                     </div>
                     <div id="head-body" class="clearfix">

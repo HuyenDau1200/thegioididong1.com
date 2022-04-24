@@ -8,7 +8,7 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 //Create an instance; passing `true` enables exceptions
-function send_mail($send_to_mail,$send_to_fullname,$subject,$content,$option=array()){
+function send_mail($send_to_mail, $send_to_fullname, $subject, $content,$option=array()){
     global $config;
     $config_email=$config['email'];
     $mail = new PHPMailer(true);
@@ -24,9 +24,9 @@ function send_mail($send_to_mail,$send_to_fullname,$subject,$content,$option=arr
         $mail->Port       = $config_email['smtp_port'];                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         $mail-> CharSet='UTF-8';
         //Recipients
-        $mail->setFrom($config_email['smtp_user'],$config_email['smtp_fullname']);
-        $mail->addReplyTo($config_email['smtp_user'],$config_email['smtp_fullname']);
-        $mail->addAddress($send_to_mail,$send_to_fullname);
+        $mail->setFrom($config_email['smtp_user'], $config_email['smtp_fullname']);
+        $mail->addReplyTo($config_email['smtp_user'], $config_email['smtp_fullname']);
+        $mail->addAddress($send_to_mail, $send_to_fullname);
         //Attachments
         if(!empty($option)){
             $mail -> addAttachment($option['name_file_attachment'],$option['name_file_replace']);

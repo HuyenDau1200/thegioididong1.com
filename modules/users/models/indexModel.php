@@ -9,19 +9,38 @@ function get_user_by_id($id){
     return $item;
 }
 
-function user_exists($username,$email){
-    $check_user=db_num_rows("SELECT * FROM `tbl_users` WHERE  `username`= '{$username}' OR `email`= '{$email}'");
+/**
+ * Check user exists by email or username.
+ *
+ * @param $username
+ * @param $email
+ * @return bool
+ */
+function user_exists($username, $email) {
+    $check_user = db_num_rows("SELECT * FROM `tbl_users` WHERE  `username`= '{$username}' OR `email`= '{$email}'");
     if($check_user > 0){
         return true;
     }
     return false;
 }
 
+/** Add user.
+ *
+ * @param $data
+ * @return int|string
+ */
 function add_user($data){
-    return db_insert('tbl_users',$data);
+    return db_insert('tbl_users', $data);
 }
-function check_active_token($active_token){
-    $check_token=db_num_rows("SELECT * FROM `tbl_users` WHERE  `active_token`= '{$active_token}' AND `is_active`='0'");
+
+/**
+ * Check exists active token.
+ *
+ * @param $active_token
+ * @return bool
+ */
+function check_active_token($active_token) {
+    $check_token = db_num_rows("SELECT * FROM `tbl_users` WHERE  `activeToken`= '{$active_token}' AND `isActive`='0'");
     if($check_token > 0){
         return true;
     }
@@ -29,21 +48,32 @@ function check_active_token($active_token){
 }
 
 function active_user($active_token){
-    return db_update('tbl_users',array('is_active' => '1'),"`active_token`='{$active_token}'");
+    return db_update('tbl_users', ['isActive' => '1'],"`activeToken`='{$active_token}'");
 }
 
-#hàm kiểm tra xem user có tồn tại trong hệ thống và chưa được kích hoạt
-function check_user_exists($email){
-    $check_user=db_num_rows("SELECT * FROM `tbl_users` WHERE `email`= '{$email}' AND `is_active`='0'");
+/**
+ *
+ * Check user exists and not actived yet (user đã tồn tại và chưa được active)
+ *
+ * @param $email
+ * @return bool
+ */
+function check_user_exists($email) {
+    $check_user=db_num_rows("SELECT * FROM `tbl_users` WHERE `email`= '{$email}' AND `isActive`='0'");
     if($check_user > 0){
         return true;
     }
     return false;
 }
 
-#xóa tài khoản theo user
+/**
+ * Delete user by email.
+ *
+ * @param $email
+ * @return int|string
+ */
 function delete_user($email){
-    return db_delete('tbl_users',"`email`='{$email}'");
+    return db_delete('tbl_users', "`email`='{$email}'");
 }
 
 //login
@@ -64,29 +94,46 @@ function check_login($username, $password){
 //     return false;
 // }
 
-function check_email($email){
-    $check_email=db_num_rows("SELECT * FROM `tbl_users` WHERE `email`= '{$email}' AND `is_active`='1'");
-    if($check_email > 0){
+/**
+ * Check exists email.
+ *
+ * @param $email
+ * @return bool
+ */
+function check_email($email) {
+    $check_email = db_num_rows("SELECT * FROM `tbl_users` WHERE `email`= '{$email}' AND `isActive`='1'");
+    if ($check_email > 0) {
         return true;
     }
     return false;
 }
 
 function active_pass($email,$reset_pass_token){
-    return db_update('tbl_users',array('reset_pass_token' => "{$reset_pass_token}"),"`email`='{$email}'");
+    return db_update('tbl_users', ['resetPassToken' => "{$reset_pass_token}"], "`email`='{$email}'");
 }
 
-//Hàm kiểm tra xem mã reset_pass_token có tồn tại trong hệ thống không
-function check_reset_pass_token($reset_pass_token){
-    $check_pass_token=db_num_rows("SELECT * FROM `tbl_users` WHERE `reset_pass_token`= '{$reset_pass_token}'");
+/**
+ * Check exists reset pass token.
+ *
+ * @param $reset_pass_token
+ * @return bool
+ */
+function check_reset_pass_token($reset_pass_token) {
+    $check_pass_token = db_num_rows("SELECT * FROM `tbl_users` WHERE `resetPassToken`= '{$reset_pass_token}'");
     if($check_pass_token > 0){
         return true;
     }
     return false;
 }
 
-//Hàm thay đổi mật khẩu
-function reset_pass_user($reset_pass_token,$new_pass){
-    return db_update('tbl_users',array('password' => $new_pass,'reset_pass_date' => date("Y-m-d h:i:s",time())),"`reset_pass_token`='{$reset_pass_token}'");
+/**
+ * Change pass word.
+ *
+ * @param $reset_pass_token
+ * @param $new_pass
+ * @return int|string
+ */
+function reset_pass_user($reset_pass_token, $new_pass) {
+    return db_update('tbl_users', ['password' => $new_pass, 'resetPassDate' => date("Y-m-d h:i:s",time())], "`resetPassToken`='{$reset_pass_token}'");
 }
 

@@ -2,24 +2,15 @@
 <?php
 function construct()
 {
-    //echo "Dùng chung, load đầu tiên";
     load_model('index');
     load('lib', 'validation');
-    //load('helper', 'users');
     load('lib', 'email');
 }
-#Load model
-#Load view
-#Load lib
-#load helper
-function indexAction()
-{
-    load_view('index');
-}
+
 function loginAction()
 {
     global $error, $username, $password;
-    #Thuật toán đặt cờ hiệu
+
     if (isset($_POST['btn-login'])) {
         $error = array();
         #Kiểm tra username
@@ -52,8 +43,8 @@ function loginAction()
             #Xử lý login
             if (check_login($username, $password)) {
                 //Lưu trữ phiên đăng nhập
-                $_SESSION['is_login'] = true;
-                $_SESSION['user_login'] = $username;
+                $_SESSION['admin_is_login'] = true;
+                $_SESSION['admin_login'] = $username;
                 //Chuyển hướng vào hệ thống
                 redirect();
             } else {
@@ -65,8 +56,8 @@ function loginAction()
 }
 function logoutAction()
 {
-    unset($_SESSION['is_login']);
-    unset($_SESSION['user_login']);
+    unset($_SESSION['admin_is_login']);
+    unset($_SESSION['admin_login']);
     redirect("?mod=users&action=login");
 }
 

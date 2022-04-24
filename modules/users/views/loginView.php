@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="public/css/reset.css" rel="stylesheet" type="text/css" />
     <link href="public/css/login.css" rel="stylesheet" type="text/css" />
+    <link href="public/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <title>Form đăng nhập</title> 
 </head>
 <body>
@@ -19,6 +20,9 @@
         }
     </style>
     <div id="wp-form-login">
+        <div class="clearfix" id="home">
+            <a href="?"><i class="fa fa-close"></i></a>
+        </div>
         <h1 class="page-title">ĐĂNG NHẬP</h1>
         <form id="form-login" action="" method="POST">
             <input type="text" name="username" value="<?php set_value('username') ?>" placeholder="username" id="username"/>

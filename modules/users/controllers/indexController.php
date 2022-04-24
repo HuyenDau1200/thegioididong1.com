@@ -26,6 +26,7 @@ function loginAction()
     #Thuật toán đặt cờ hiệu
     if (isset($_POST['btn-login'])) {
         $error = array();
+
         #Kiểm tra username
         if (empty($_POST['username'])) {
             $error['username'] = "Tên đăng nhập không được để trống!";
@@ -38,6 +39,7 @@ function loginAction()
                 $username = $_POST['username'];
             }
         }
+
         #Kiểm tra password
         if (empty($_POST['password'])) {
             $error['password'] = "Mật khẩu không được để trống!";
@@ -56,8 +58,8 @@ function loginAction()
             #Xử lý login
             if (check_login($username, $password)) {
                 //Lưu trữ phiên đăng nhập
-                $_SESSION['client_is_login'] = true;
-                $_SESSION['client_login'] = $username;
+                $_SESSION['is_login'] = true;
+                $_SESSION['user_login'] = $username;
                 //Chuyển hướng vào hệ thống
                 redirect();
             } else {
@@ -70,19 +72,53 @@ function loginAction()
 
 function regAction()
 {
-    global $error, $username, $fullname, $email, $password;
+    global $error, $firstName, $lastName, $email, $phoneNumber, $address, $username, $password;
     // echo send_mail('anhthongdau861@gmail.com','Đậu Thiện Thông','Kích hoạt khóa học PHP Master',"<a href='http://unitop.vn'>Kích hoạt</a>");
     if (isset($_POST['btn-reg'])) {
-        $error = array();
+        $error = [];
 
-        //Kiểm tra fullname
-        if (empty($_POST['fullname'])) {
-            $error['fullname'] = "Họ và tên không được để trống!";
+        if (empty($_POST['firstName'])) {
+            $error['firstName'] = "Họ không được để trống!";
         } else {
-            $fullname = $_POST['fullname'];
+            $firstName = $_POST['firstName'];
         }
 
-        //Kiểm tra username
+        if (empty($_POST['lastName'])) {
+            $error['lastName'] = "Tên không được để trống!";
+        } else {
+            $lastName = $_POST['lastName'];
+        }
+
+        //email
+        if (empty($_POST['email'])) {
+            $error['email'] = "Email không được để trống!";
+        } else {
+            if (!is_email($_POST['email'])) {
+                $error['email'] = "Email không đúng định dạng!";
+            } else {
+                $email = $_POST['email'];
+            }
+        }
+
+        //phone number
+        if (empty($_POST['phoneNumber'])) {
+            $error['phoneNumber'] = "Số điện thoại không được để trống!";
+        } else {
+            if (!is_phoneNumber($_POST['phoneNumber'])) {
+                $error['phoneNumber'] = "Số điện thoại không đúng định dạng!";
+            } else {
+                $phoneNumber = $_POST['phoneNumber'];
+            }
+        }
+
+        // address
+        if (empty($_POST['address'])) {
+            $error['address'] = "Địa chỉ không được để trống!";
+        } else {
+            $address = $_POST['address'];
+        }
+
+        //username
         if (empty($_POST['username'])) {
             $error['username'] = "Tên đăng nhập không được để trống!";
         } else {
@@ -93,25 +129,14 @@ function regAction()
             }
         }
 
-        //Kiểm tra password
+        //password
         if (empty($_POST['password'])) {
             $error['password'] = "Mật khẩu không được để trống!";
         } else {
             if (!is_password($_POST['password'])) {
-                $error['password'] = "Mật khẩu không đúng định dạng!";
+                $error['password'] = "Mật khẩu từ 6-32 ký tự bao gồm chữ cái, số và các ký tự đặc biệt trong đó chữ cái đầu phải viết hoa";
             } else {
                 $password = md5($_POST['password']);
-            }
-        }
-
-        //Kiểm tra email
-        if (empty($_POST['email'])) {
-            $error['email'] = "Email không được để trống!";
-        } else {
-            if (!is_email($_POST['email'])) {
-                $error['email'] = "Email không đúng định dạng!";
-            } else {
-                $email = $_POST['email'];
             }
         }
 
@@ -124,20 +149,26 @@ function regAction()
             if (!user_exists($username, $email)) {
                 $active_token = md5($username . time());
                 $data = array(
-                    'fullname' => $fullname,
+                    'firstName' => $firstName,
+                    'lastName' => $lastName,
                     'username' => $username,
-                    'password' => $password,
+                    'password' => md5($password),
                     'email' => $email,
-                    'active_token' => $active_token
+                    'phoneNumber' => $phoneNumber,
+                    'address' => $address,
+                    'role' => '0',
+                    'createdAt' => date('Y-m-d H:i:s', time()),
+                    'updatedAt' => date('Y-m-d H:i:s', time()),
+                    'activeToken' => $active_token
                 );
                 add_user($data);
                 #Gửi mã vào email
                 $link_active = base_url("?mod=users&action=active&active_token={$active_token}");
-                $content = "<p>Chào bạn {$fullname}</p>
-                <p>Chúc mừng bạn đã trở thành thành viên của Unitop</p>
+                $content = "<p>Chào bạn {$firstName}.' '.{$lastName}</p>
+                <p>Chúc mừng bạn đã trở thành khách hàng của chúng tôi</p>
                 <p>Vui lòng click vào link sau: <a href='{$link_active}'>Kích hoạt</a> để kích hoạt tài khoản!</p>
-                <p>Team support from Unitop</p>";
-                send_mail('anhthongdau861@gmail.com', 'Đậu Thiện Thông', '[Unitop] Kích hoạt tài khoản', $content);
+                <p>Team support from thegioididong.com</p>";
+                send_mail($email, $firstName. " ".$lastName , '[Thế giới di động] Kích hoạt tài khoản', $content);
                 redirect("?mod=users&action=login");
             } else {
                 $error['account'] = "Tên đăng nhập hoặc email đã tồn tại!";
@@ -150,25 +181,28 @@ function activeAction()
 {
     $active_token = $_GET['active_token'];
     $link_login = base_url("?mod=users&action=login");
-    #Kiểm tra xem mã active_token có tồn tại trong hệ thống không
+    // Kiểm tra xem mã active_token có tồn tại trong hệ thống mà chưa được active
     if (check_active_token($active_token)) {
-        #Nếu tồn tại, active tài khoản
+        // Nếu tồn tại, active tài khoản
         active_user($active_token);
         echo "Bạn đã kích hoạt thành công, vui lòng click <a href='{$link_login}'>vào đây</a> để đăng nhập!";
     } else {
         echo "Yêu cầu kích hoạt không hợp lệ hoặc tài khoản đã được kích hoạt trước đó, vui lòng click <a href='{$link_login}'>vào đây</a> để đăng nhập!";
     }
-    //echo $active_token;
 }
 
 function logoutAction()
 {
     unset($_SESSION['is_login']);
     unset($_SESSION['user_login']);
-    redirect("?mod=users&action=login");
+    redirect("?");
 }
 
-//QUên mật khẩu
+/**
+ * Loss pass.
+ *
+ * @return void
+ */
 function loss_passAction()
 {
     global $error;
@@ -181,11 +215,10 @@ function loss_passAction()
             active_pass($email, $reset_pass_token);
             $link_send_to_email = base_url("?mod=users&action=set_new_pass&reset_pass_token={$reset_pass_token}");
             $content = "
-                <p>Chúc mừng bạn đã trở thành thành viên của Unitop</p>
+                <p>Bạn đã quên mật khẩu?</p>
                 <p>Vui lòng click vào link sau: <a href='{$link_send_to_email}'>{$link_send_to_email}</a> để xác nhận lấy lại mật khẩu!</p>";
-            send_mail('anhthongdau861@gmail.com', 'Đậu Thiện Thông', '[Unitop] Lấy lại mật khẩu', $content);
-            echo "Vui lòng truy cập vào email của bạn để xác nhận thay đổi mật khẩu!";
-            //redirect("?mod=users&action=login");
+            send_mail($email, '', '[Thế giới di động] Lấy lại mật khẩu', $content);
+            redirect("?mod=users&action=messageLossPass");
         } else {
             $error['email'] = "Không tồn tại email trong hệ thống!";
         }
@@ -193,15 +226,29 @@ function loss_passAction()
     load_view('loss_pass');
 }
 
+/**
+ * Message confirm email to set new password when loss pass.
+ *
+ * @return void
+ */
+function messageLossPassAction() {
+    load_view('messageLossPass');
+}
+
+/**
+ * Set new password.
+ *
+ * @return void
+ */
 function set_new_passAction()
 {
     $reset_pass_token = $_GET['reset_pass_token'];
     if(check_reset_pass_token($reset_pass_token)){
-        global $error,$new_pass,$confirm_pass;
-        if(isset($_POST['btn-set-new-pass'])){
-            $error=array();
+        global $error, $new_pass, $confirm_pass;
+        if (isset($_POST['btn-set-new-pass'])) {
+            $error = [];
             //Kiểm tra định dạng của mật khẩu
-            if(empty($_POST['new_pass'])){
+            if (empty($_POST['new_pass'])) {
                 $error['new_pass']="Vui lòng nhập mật khẩu mới!";
             }
             else{
@@ -214,20 +261,20 @@ function set_new_passAction()
             }
 
             //Xác nhận lại mật khẩu
-            if(empty($_POST['confirm_pass'])){
-                $error['confirm_pass']="Vui lòng xác nhận lại mật khẩu mới!";
+            if (empty($_POST['confirm_pass'])) {
+                $error['confirm_pass'] = "Vui lòng xác nhận lại mật khẩu mới!";
             }
             else{
-                $confirm_pass=md5($_POST['confirm_pass']);
+                $confirm_pass = md5($_POST['confirm_pass']);
             }
 
             //Kiểm tra xem new_pass = confirm_pass không
             if($new_pass != $confirm_pass){
-                $error['reset_pass']="Trường xác nhận mật khẩu không khớp với trường mật khẩu mới!";
+                $error['reset_pass'] = "Trường xác nhận mật khẩu không khớp với trường mật khẩu mới!";
             }
             else{
-                reset_pass_user($reset_pass_token,$new_pass);
-                echo "Cập nhật mật khẩu thành công, vui lòng click <a href='?mod=users&action=login'>vào đây</a> để đăng nhập vào hệ thống!";
+                reset_pass_user($reset_pass_token, $new_pass);
+                redirect("?mod=users&action=successResetPass");
             }
         }
         load_view('reset_pass');
@@ -235,4 +282,13 @@ function set_new_passAction()
     else{
         echo "Mã kích hoạt đổi mật khẩu không tồn tại trong hệ thống hoặc đã hết hạn, bạn vui lòng kiểm tra lại gmail để kiểm tra lại mã!";
     }
+}
+
+/**
+ * Success reset pass.
+ *
+ * @return void
+ */
+function successResetPassAction() {
+    load_view('successResetPass');
 }
