@@ -137,7 +137,8 @@ function updateAction()
                 'firstName' => $firstName,
                 'lastName' => $lastName,
                 'phoneNumber' => $phone_number,
-                'address' => $address
+                'address' => $address,
+                'updatedAt' => date('Y-m-d H:i:s', time())
             );
             update_user_login($data, user_login());
         }
@@ -147,10 +148,13 @@ function updateAction()
     load_view('update', $data);
 }
 
-#Thiết lập mật khẩu
+/**
+ * Change password.
+ *
+ * @return void
+ */
 function resetAction()
 {
-    #validation form
     global $error;
     if (isset($_POST['btn-submit'])) {
         $error = array();

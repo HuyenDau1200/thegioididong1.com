@@ -34,8 +34,9 @@
     font-size: 22px;
     padding-top: 25px;
     font-weight: 800;
+    padding-left: 0px;
 }
-#head-body #search-wp{ padding: 22px 0px 22px 195px;}
+#head-body #search-wp{ padding: 22px 0px 22px;}
 #head-body #search-wp #s{
     display: inline-block;
     width: 400px;

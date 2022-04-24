@@ -1,25 +1,17 @@
-
 <?php
 function construct()
 {
-    //    echo "Dùng chung, load đầu tiên";
     load_model('index');
     load('lib', 'validation');
     //load('helper', 'users');
     load('lib', 'email');
 }
 
-#Load model
-#Load view
-#Load lib
-#load helper
-function indexAction()
-{
-    load('helper', 'format');
-    $list_users = get_list_users();
-    $data['list_users'] = $list_users;
-    load_view('index', $data);
-}
+/**
+ * Login.
+ *
+ * @return void
+ */
 function loginAction()
 {
     global $error, $username, $password;
@@ -70,6 +62,11 @@ function loginAction()
     load_view('login');
 }
 
+/**
+ * Register.
+ *
+ * @return void
+ */
 function regAction()
 {
     global $error, $firstName, $lastName, $email, $phoneNumber, $address, $username, $password;
@@ -177,6 +174,12 @@ function regAction()
     }
     load_view('reg');
 }
+
+/**
+ * Active account.
+ *
+ * @return void
+ */
 function activeAction()
 {
     $active_token = $_GET['active_token'];
@@ -191,6 +194,11 @@ function activeAction()
     }
 }
 
+/**
+ * Log out.
+ *
+ * @return void
+ */
 function logoutAction()
 {
     unset($_SESSION['is_login']);
@@ -291,4 +299,100 @@ function set_new_passAction()
  */
 function successResetPassAction() {
     load_view('successResetPass');
+}
+
+function updateAccountAction() {
+    global $error, $lastName, $firstName, $phone_number, $address;
+    if (isset($_POST['btn-update'])) {
+        $error = array();
+        #Tên hiển thị
+        if (empty($_POST['firstName'])) {
+            $error['firstName'] = "Họ không được để trống!";
+        } else {
+            $firstName = $_POST['firstName'];
+        }
+        if (empty($_POST['lastName'])) {
+            $error['lastName'] = "Tên không được để trống!";
+        } else {
+            $lastName = $_POST['lastName'];
+        }
+
+        #số điện thoại
+        if (empty($_POST['phone_number'])) {
+            $error['phone_number'] = "Số điện thoại không được để trống!";
+        } else {
+            $phone_number = $_POST['phone_number'];
+        }
+
+        #địa chỉ
+        if (empty($_POST['address'])) {
+            $error['address'] = "Địa chỉ không được để trống!";
+        } else {
+            $address = $_POST['address'];
+        }
+
+        if (empty($error)) {
+            $data = array(
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'phoneNumber' => $phone_number,
+                'address' => $address,
+                'updatedAt' => date('Y-m-d H:i:s', time())
+            );
+            update_user_login($data, user_login());
+        }
+    }
+    $info_user = get_user_by_username(user_login());
+    $data['info_user'] = $info_user;
+    load_view('updateAccount', $data);
+}
+
+function changePassAction() {
+    global $error;
+    if (isset($_POST['btn-submit'])) {
+        $error = [];
+        //old pass
+        if (empty($_POST['pass-old'])) {
+            $error['pass-old'] = "Trường mật khẩu cũ không được để trống!";
+        } else {
+            $pass_old = md5($_POST['pass-old']);
+        }
+
+        //new pass
+        if (empty($_POST['pass-new'])) {
+            $error['pass-new'] = "Trường mật khẩu mới không được để trống!";
+        } else {
+            if (!(strlen($_POST['pass-new']) >= 6 && strlen($_POST['pass-new']) <= 32)) {
+                $error['pass-new'] = "Độ dài của password bao gồm 6 - 32 ký tự!";
+            } else if (!is_password($_POST['pass-new'])) {
+                $error['pass-new'] = "Mật khẩu bao gồm các ký tự chữ cái, chữ số, dấu gạch dưới, các ký tự đặc biệt và từ 6 - 32 ký tự";
+            } else {
+                $pass_new = md5($_POST['pass-new']);
+            }
+        }
+
+        //confirm pass
+        if (empty($_POST['confirm-pass'])) {
+            $error['confirm-pass'] = "Trường xác nhận mật khẩu không được để trống!";
+        } else {
+            $confirm_pass = md5($_POST['confirm-pass']);
+        }
+        if (empty($error)) {
+            if (check_pass_old(user_login(), $pass_old)) {
+                if ($pass_new == $confirm_pass) {
+                    $data = [
+                        'password' => $pass_new,
+                        'resetPassDate' => date('Y-m-d H:i:s', time())
+                    ];
+                    change_pass(user_login(), $data);
+                    redirect("?mod=users&action=login");
+                } else {
+                    $error['confirm-pass'] = "Trường xác nhận mật khẩu không khớp với trường mật khẩu mới!";
+                }
+            } else {
+                $error['pass-old'] = "Mật khẩu cũ không chính xác!";
+            }
+        }
+    }
+    load_view('reset');
 }

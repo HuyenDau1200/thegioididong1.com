@@ -26,7 +26,13 @@ function get_list_team_manager()
         return $result;
     return false;
 }
-#Hàm lấy t.tin theo id
+
+/**
+ * Get user by username.
+ *
+ * @param $username
+ * @return array|false|string[]
+ */
 function get_user_by_username($username){
     $item = db_fetch_row("SELECT * FROM `tbl_users` WHERE `username`='{$username}'");
     if(!empty($item))
@@ -34,22 +40,48 @@ function get_user_by_username($username){
     return false;
 }
 
-#Hàm đổi mật khẩu
-function change_pass($username,$data){
-    return db_update('tbl_users',$data,"`username`='{$username}'");
+/**
+ * Change pass.
+ *
+ * @param $username
+ * @param $data
+ * @return int|string
+ */
+function change_pass($username,$data) {
+    return db_update('tbl_users', $data, "`username`='{$username}'");
 }
-#Kiểm tra xem tài khoản đúng mật khẩu không
-function check_pass_old($username,$pass_old){
-    $check_pass_old=db_num_rows("SELECT * FROM `tbl_users` WHERE `username`='{$username}' AND `password`='{$pass_old}'");
-    if($check_pass_old > 0){
+
+/**
+ * Check correct old pass.
+ *
+ * @param $username
+ * @param $pass_old
+ * @return bool
+ */
+function check_pass_old($username, $pass_old) {
+    $check_pass_old = db_num_rows("SELECT * FROM `tbl_users` WHERE `username`='{$username}' AND `password`='{$pass_old}'");
+    if ($check_pass_old > 0) {
         return true;
     }
     return false;
 }
-#Cập nhật thông tin tài khoản
-function update_user_login($data,$username){
-    return db_update('tbl_users',$data,"`username`='{$username}'");
+
+/**
+ * Update Account.
+ *
+ * @param $data
+ * @param $username
+ * @return int|string
+ */
+function update_user_login($data,$username) {
+    return db_update('tbl_users', $data, "`username`='{$username}'");
 }
+
+/**
+ * Info account.
+ *
+ * @return false|mixed
+ */
 function info_account()
 {
     $list_users = db_fetch_array("SELECT * FROM `tbl_users`");
@@ -62,12 +94,24 @@ function info_account()
     }
     return false;
 }
+
+/**
+ * Get list users.
+ *
+ * @return array
+ */
 function get_list_users()
 {
     $result = db_fetch_array("SELECT * FROM `tbl_users`");
     return $result;
 }
 
+/**
+ * Get user by id.
+ *
+ * @param $id
+ * @return array|false|string[]|null
+ */
 function get_user_by_id($id)
 {
     $item = db_fetch_row("SELECT * FROM `tbl_users` WHERE `user_id`={$id}");
@@ -83,10 +127,23 @@ function user_exists($username, $email)
     return false;
 }
 
+/**
+ * Add user.
+ *
+ * @param $data
+ * @return int|string
+ */
 function add_user($data)
 {
     return db_insert('tbl_users', $data);
 }
+
+/**
+ * Check active token.
+ *
+ * @param $active_token
+ * @return bool
+ */
 function check_active_token($active_token)
 {
     $check_token = db_num_rows("SELECT * FROM `tbl_users` WHERE  `active_token`= '{$active_token}' AND `is_active`='0'");
@@ -96,12 +153,23 @@ function check_active_token($active_token)
     return false;
 }
 
+/**
+ * Active user.
+ *
+ * @param $active_token
+ * @return int|string
+ */
 function active_user($active_token)
 {
     return db_update('tbl_users', array('is_active' => '1'), "`active_token`='{$active_token}'");
 }
 
-#hàm kiểm tra xem user có tồn tại trong hệ thống và chưa được kích hoạt
+/**
+ * Check user exists and don't actived yet.
+ *
+ * @param $email
+ * @return bool
+ */
 function check_user_exists($email)
 {
     $check_user = db_num_rows("SELECT * FROM `tbl_users` WHERE `email`= '{$email}' AND `is_active`='0'");
@@ -111,14 +179,24 @@ function check_user_exists($email)
     return false;
 }
 
-#xóa tài khoản theo user
+/**
+ * Delete user.
+ *
+ * @param $email
+ * @return int|string
+ */
 function delete_user($email)
 {
     return db_delete('tbl_users', "`email`='{$email}'");
 }
 
-//login
-#Kiểm tra đăng nhập
+/**
+ * Check login.
+ *
+ * @param $username
+ * @param $password
+ * @return bool
+ */
 function check_login($username, $password)
 {
     $check_login = db_num_rows("SELECT * FROM `tbl_users` WHERE `username`= '{$username}' AND `password`='{$password}' AND `role`='1'");
@@ -128,7 +206,12 @@ function check_login($username, $password)
     return false;
 }
 
-#Check quyền truy cập
+/**
+ * Check role.
+ *
+ * @param $role
+ * @return void
+ */
 function check_role($role)
 {
     //$check_role = db_fetch_row();
@@ -141,6 +224,12 @@ function check_role($role)
 //     return false;
 // }
 
+/**
+ * Check email.
+ *
+ * @param $email
+ * @return bool
+ */
 function check_email($email)
 {
     $check_email = db_num_rows("SELECT * FROM `tbl_users` WHERE `email`= '{$email}' AND `is_active`='1'");
@@ -150,12 +239,24 @@ function check_email($email)
     return false;
 }
 
+/**
+ * Active pass.
+ *
+ * @param $email
+ * @param $reset_pass_token
+ * @return int|string
+ */
 function active_pass($email, $reset_pass_token)
 {
     return db_update('tbl_users', array('reset_pass_token' => "{$reset_pass_token}"), "`email`='{$email}'");
 }
 
-//Hàm kiểm tra xem mã reset_pass_token có tồn tại trong hệ thống không
+/**
+ * Check reset pass token exists in system?
+ *
+ * @param $reset_pass_token
+ * @return bool
+ */
 function check_reset_pass_token($reset_pass_token)
 {
     $check_pass_token = db_num_rows("SELECT * FROM `tbl_users` WHERE `reset_pass_token`= '{$reset_pass_token}'");
@@ -165,7 +266,13 @@ function check_reset_pass_token($reset_pass_token)
     return false;
 }
 
-//Hàm thay đổi mật khẩu
+/**
+ * Change password.
+ *
+ * @param $reset_pass_token
+ * @param $new_pass
+ * @return int|string
+ */
 function reset_pass_user($reset_pass_token, $new_pass)
 {
     return db_update('tbl_users', array('password' => $new_pass, 'reset_pass_date' => date("Y-m-d h:i:s", time())), "`reset_pass_token`='{$reset_pass_token}'");

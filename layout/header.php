@@ -53,7 +53,7 @@
                                         </h3>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="?mod=users&action=update" title="Thông tin cá nhân">Thông tin tài khoản</a></li>
+                                        <li><a href="?mod=users&action=updateAccount" title="Thông tin cá nhân">Thông tin tài khoản</a></li>
                                         <li><a href="?mod=users&action=logout" title="Thoát">Thoát</a></li>
                                     </ul>
                                 </div>

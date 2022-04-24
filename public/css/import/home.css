@@ -1,5 +1,9 @@
 /*MAIN CONTENT*/
-#main-content-wp{ background: #f7f7f7; padding-top: 25px; padding-bottom: 75px;}
+#main-content-wp{
+    background: #f7f7f7;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
 .main-content{ width: 75%; margin-left: 2%; }
 .sidebar{ width: 23%;}
 #slider-wp .item img{ width: 100%!important}

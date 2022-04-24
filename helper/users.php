@@ -22,7 +22,7 @@ function is_login(){
 
 //Trả về username của người login
 function user_login(){
-    if(!empty($_SESSION['user_login']))
+    if (!empty($_SESSION['user_login']))
         return $_SESSION['user_login'];
     return false;
 }
