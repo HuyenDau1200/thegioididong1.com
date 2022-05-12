@@ -18,6 +18,7 @@
         <script src="public/js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
         <script src="public/js/carousel/owl.carousel.js" type="text/javascript"></script>
         <script src="public/js/main.js" type="text/javascript"></script>
+        <script src="public/js/cart.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="site">
@@ -58,7 +59,7 @@
                                     </ul>
                                 </div>
                                 <?php } else { ?>
-                                <a href="?mod=users&action=login" title="" id="payment-link" class="fl-right">Đăng nhập</a>
+                                <a href="?mod=users&action=login" title="" id="payment-link" class="fl-right">Đăng nhập/Đăng ký</a>
                                 <?php }?>
                             </div>
                         </div>
@@ -78,47 +79,43 @@
                                     <span class="phone">0123.456.789</span>
                                 </div>
                                 <div id="btn-respon" class="fl-right"><i class="fa fa-bars" aria-hidden="true"></i></div>
-                                <a href="?page=cart" title="giỏ hàng" id="cart-respon-wp" class="fl-right">
+                                <a href="?mod=cart" title="giỏ hàng" id="cart-respon-wp" class="fl-right">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span id="num">2</span>
+                                    <span id="num"><?= getNumOrderCart() ?></span>
                                 </a>
                                 <div id="cart-wp" class="fl-right">
                                     <div id="btn-cart">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                        <span id="num">2</span>
+                                        <span id="num"><?= getNumOrderCart() ?></span>
                                     </div>
                                     <div id="dropdown">
-                                        <p class="desc">Có <span>2 sản phẩm</span> trong giỏ hàng</p>
-                                        <ul class="list-cart">
-                                            <li class="clearfix">
-                                                <a href="" title="" class="thumb fl-left">
-                                                    <img src="public/images/img-pro-11.png" alt="">
-                                                </a>
-                                                <div class="info fl-right">
-                                                    <a href="" title="" class="product-name">Sony Express X6</a>
-                                                    <p class="price">6.250.000đ</p>
-                                                    <p class="qty">Số lượng: <span>1</span></p>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix">
-                                                <a href="" title="" class="thumb fl-left">
-                                                    <img src="public/images/img-pro-23.png" alt="">
-                                                </a>
-                                                <div class="info fl-right">
-                                                    <a href="" title="" class="product-name">Laptop Lenovo 10</a>
-                                                    <p class="price">16.250.000đ</p>
-                                                    <p class="qty">Số lượng: <span>1</span></p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="total-price clearfix">
-                                            <p class="title fl-left">Tổng:</p>
-                                            <p class="price fl-right">18.500.000đ</p>
-                                        </div>
-                                        <dic class="action-cart clearfix">
-                                            <a href="?mod=cart" title="Giỏ hàng" class="view-cart fl-left">Giỏ hàng</a>
-                                            <a href="?mod=checkout" title="Thanh toán" class="checkout fl-right">Thanh toán</a>
-                                        </dic>
+                                        <?php if (getNumOrderCart() > 0) {?>
+                                            <p class="desc">Có <span><?= getNumOrderCart() ?></span> sản phẩm trong giỏ hàng</p>
+                                            <ul class="list-cart">
+                                                <?php foreach (getListBuyCart() as $item) { ?>
+                                                    <li class="clearfix">
+                                                        <a href="<?= $item['url']?>" title="" class="thumb fl-left">
+                                                            <img src="admin/public/images/<?= $item['productThumb'] ?>" alt="">
+                                                        </a>
+                                                        <div class="info fl-right">
+                                                            <a href="<?= $item['url']?>" title="" class="product-name"><?= $item['productName'] ?></a>
+                                                            <p class="price"><?= currency_format($item['price']) ?></p>
+                                                            <p class="qty">Số lượng: <span><?=$item['qty']?></span></p>
+                                                        </div>
+                                                    </li>
+                                                <?php } ?>
+                                            </ul>
+                                            <div class="total-price clearfix">
+                                                <p class="title fl-left">Tổng:</p>
+                                                <p class="price fl-right"><?= currency_format(getTotalCart())?></p>
+                                            </div>
+                                            <div class="action-cart clearfix">
+                                                <a href="?mod=cart" title="Giỏ hàng" class="view-cart fl-left">Giỏ hàng</a>
+                                                <a href="?mod=cart&action=checkout" title="Thanh toán" class="checkout fl-right">Thanh toán</a>
+                                            </div>
+                                        <?php } else { ?>
+                                            <p class="desc">Không có sản phẩm nào trong giỏ hàng!</p>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>

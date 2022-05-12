@@ -90,12 +90,13 @@
 }
 #detail-product-wp .add-cart{
     display: inline-block;
-    padding: 10px 30px;
+    padding: 10px 20px;
     font-size: 16px;
     background: green;
     color: #fff;
     border-radius: 5px;
     text-transform: uppercase;
+    margin-top: 20px;
 }
 #detail-product-wp .add-cart:hover{ background: #006d00;}
 #post-product-wp .section-title, #same-category-wp .section-title{

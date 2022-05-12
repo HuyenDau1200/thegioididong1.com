@@ -6,7 +6,7 @@ function get_users($start=1,$num_per_page=5,$where=''){
 }
 #Hàm cập nhật thông tin nhóm quản trị
 function update_team_user($data, $id){
-    return db_update('tbl_users',$data,"`user_id`={$id}");
+    return db_update('tbl_users',$data,"`userId`={$id}");
 }
 #Hàm lấy sl team quản trị theo role
 function num_user_by_role($role){
@@ -114,7 +114,7 @@ function get_list_users()
  */
 function get_user_by_id($id)
 {
-    $item = db_fetch_row("SELECT * FROM `tbl_users` WHERE `user_id`={$id}");
+    $item = db_fetch_row("SELECT * FROM `tbl_users` WHERE `userId`={$id}");
     return $item;
 }
 

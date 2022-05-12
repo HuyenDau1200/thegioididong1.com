@@ -1,5 +1,5 @@
 /*CHANGE PASS*/
-.change-pass-page #detail-page .section-detail input[type="password"]{
+.change-pass-page #detail-page .section-detail input{
     display: block;
     padding: 5px 10px;
     border: 1px solid #ddd;

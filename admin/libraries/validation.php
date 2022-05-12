@@ -8,7 +8,7 @@ function is_tel($tel){
 }
 #Hàm is_username()
 function is_username($username){
-    $parttern="/^[A-Za-z0-9_\.]{6,32}$/";
+    $parttern="/^[A-Za-z0-9_ \.]{6,32}$/";
     if(preg_match($parttern,$username,$matches)){
         return true;
     }
@@ -24,7 +24,7 @@ function is_password($password){
 
 #Hàm is_email()
 function is_email($email){
-    $parttern="/^[A-Za-z0-9_.]{5,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
+    $parttern="/^[A-Za-z0-9_.+]{5,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/";
     if(preg_match($parttern,$email,$matches)){
         return true;
     }

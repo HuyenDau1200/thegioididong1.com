@@ -6,10 +6,13 @@
  */
 function getListPhone() {
     $result = [];
-    $listProducts = db_fetch_array("SELECT * FROM `tbl_products`");
+    $listProducts = db_fetch_array("SELECT * FROM `tbl_products` order by `createdAt` desc");
     foreach ($listProducts as $product) {
         if(getParentIdById($product['catId']) == 1) {
             $result[] = $product;
+            if (count($result) == 8) {
+                break;
+            }
         }
     }
     return $result;
@@ -34,7 +37,7 @@ function getParentIdById($id) {
  */
 function getListProductByCatId($catId) {
     $result = [];
-    $listProducts = db_fetch_array("SELECT * FROM `tbl_products`");
+    $listProducts = db_fetch_array("SELECT * FROM `tbl_products` ");
     foreach ($listProducts as $product) {
         if ($product['catId'] == $catId) {
             $result[] = $product;

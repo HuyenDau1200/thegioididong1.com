@@ -52,8 +52,8 @@ get_header();
                                 <span class="old"><?= currency_format($product['price']) ?></span>
                             </div>
                             <div class="action clearfix">
-                                <a href="?mod=cart" title="Thêm giỏ hàng" class="add-cart fl-left">Thêm giỏ hàng</a>
-                                <a href="?mod=checkout" title="Mua ngay" class="buy-now fl-right">Mua ngay</a>
+                                <a href="?mod=cart&action=add&id=<?= $product['productId'] ?>" title="Thêm giỏ hàng" class="add-cart fl-left">Thêm giỏ hàng</a>
+                                <a href="?mod=cart&controller=checkout" title="Mua ngay" class="buy-now fl-right">Mua ngay</a>
                             </div>
                         </li>
                         <?php }?>

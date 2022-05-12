@@ -31,4 +31,4 @@
     margin-bottom: 50px;
 }
 .info-account-page #detail-page .section-detail button:hover{ background: #26b0d9;}
-#username{ cursor: not-allowed; background: #f3f3f3;}
+#username, #email{ cursor: not-allowed; background: #f3f3f3;}

@@ -84,7 +84,7 @@ function delete_user($email){
  * @return bool
  */
 function check_login($username, $password){
-    $check_login=db_num_rows("SELECT * FROM `tbl_users` WHERE `username`= '{$username}' AND `password`='{$password}'  AND `role`=0");
+    $check_login=db_num_rows("SELECT * FROM `tbl_users` WHERE `username`= '{$username}' AND `password`='{$password}'  AND `role`=0 AND `isActive` =1");
     if($check_login > 0){
         return true;
     }

@@ -31,15 +31,15 @@
                                 <?php foreach($listManufacturer as $item){ $temp++;?>
                                 <tr>
                                     <td><input type="checkbox" name="checkItem" class="checkItem"></td>
-                                    <td><span class="tbody-text"><?= $item['manufactureId'] ?></h3></span>
-                                    <td><span class="tbody-text"><?= $item['manufactureName'] ?></span></td>
+                                    <td><span class="tbody-text"><?= $item['supplierId'] ?></h3></span>
+                                    <td><span class="tbody-text"><?= $item['supplierName'] ?></span></td>
                                     <td><span class="tbody-text"><?= $item['address'] ?></span></td>
                                     <td><span class="tbody-text"><?= $item['createdAt'] ?></span></td>
                                     <td><span class="tbody-text"><?= $item['updatedAt'] ?></span></td>
                                     <td class="clearfix">
                                         <ul class="list-operation">
-                                            <li><a href="?mod=manufacturer&action=update&id=<?= $item['manufactureId'] ?>" title="Sửa" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
-                                            <li><a href="?mod=manufacturer&action=delete&id=<?= $item['manufactureId'] ?>" title="Xóa" class="delete"><i class="fa fa-trash" aria-hidden="true"></i></a></li>
+                                            <li><a href="?mod=manufacturer&action=update&id=<?= $item['supplierId'] ?>" title="Sửa" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                            <li><a href="?mod=manufacturer&action=delete&id=<?= $item['supplierId'] ?>" title="Xóa" class="delete"><i class="fa fa-trash" aria-hidden="true"></i></a></li>
                                         </ul>
                                     </td>
                                 </tr>

@@ -35,7 +35,7 @@
             </div>
             <div class="section" id="selling-wp">
                 <div class="section-head">
-                    <h3 class="section-title">Sản phẩm bán chạy</h3>
+                    <h3 class="section-title">Sản phẩm mới nhất</h3>
                 </div>
                 <?php if(!empty(getTopProduct())) {?>
                 <div class="section-detail">

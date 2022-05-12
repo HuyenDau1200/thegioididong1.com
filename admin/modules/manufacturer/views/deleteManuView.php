@@ -12,7 +12,7 @@
                     <div class="section-detail">
                         <form method="POST">
                             <label for="name">Tên nhà cung cấp</label>
-                            <input type="text" name="name" id="name" value="<?= $infoManu['manufactureName'] ?>" readonly="readonly">
+                            <input type="text" name="name" id="name" value="<?= $infoManu['supplierName'] ?>" readonly="readonly">
                             <?php form_error('name') ?>
                             <label for="address">Địa chỉ nhà cung cấp</label>
                             <input type="text" name="address" id="address" value="<?= $infoManu['address'] ?>" readonly="readonly">

@@ -1,5 +1,6 @@
-<?php get_header(); ?>
-<div id="main-content-wp" class="info-account-page">
+<?php get_header() ?>
+<div id="main-content-wp" class="info-account-page clearfix">
+    <div class="wp-inner">
     <div class="section" id="title-page">
         <div class="clearfix">
             <h3 id="index" class="fl-left">Cập nhật tài khoản khách hàng</h3>
@@ -35,6 +36,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <?php get_footer(); ?>

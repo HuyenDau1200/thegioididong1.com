@@ -88,7 +88,10 @@
     padding: 0px 5px;
     color: #ddd;
 }
-.list-table-wp tbody tr td:hover a{ color: #777;}
+
+.list-operation > li:hover > a {
+    color: #cf1c1c;
+}
 .tb-title{ 
     width: 75%;
     display: -webkit-box;
@@ -110,12 +113,22 @@
     color: #b5b5b5;
     font-style: italic;
 }
-#list-paging li{ float: left;}
+#list-paging li{
+    float: left;
+    padding: 5px;
+    background-color: #79c9e3;
+    margin-right: 5px;
+}
+#list-paging li.active {
+    background-color: #36a2c5;
+    border: 1px grey solid;
+}
 #list-paging li a{
     display: inline-block;
     color: #555;
     font-size: 13px;
     padding: 0px 5px;
+    color:white;
 }
 #main-menu > li{ position: relative;}
 #main-menu .sub-menu{

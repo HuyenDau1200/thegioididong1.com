@@ -7,7 +7,7 @@
  * @return array
  */
 function getManufacturers($start = 1, $num_per_page = 5) {
-    return db_fetch_array("SELECT * FROM `tbl_manufacturers` LIMIT {$start},{$num_per_page}");
+    return db_fetch_array("SELECT * FROM `tbl_suppliers` LIMIT {$start},{$num_per_page}");
 }
 
 /**
@@ -16,7 +16,7 @@ function getManufacturers($start = 1, $num_per_page = 5) {
  * @return int
  */
 function sumManus() {
-    return db_num_rows("SELECT * FROM `tbl_manufacturers`");
+    return db_num_rows("SELECT * FROM `tbl_suppliers`");
 }
 
 /**
@@ -27,7 +27,7 @@ function sumManus() {
  */
 function addManu($data)
 {
-    return db_insert('tbl_manufacturers', $data);
+    return db_insert('tbl_suppliers', $data);
 }
 
 /**
@@ -37,7 +37,7 @@ function addManu($data)
  * @return array|false|string[]|null
  */
 function getManuById($id) {
-    return db_fetch_row("SELECT * FROM `tbl_manufacturers` WHERE `manufactureId`={$id}");
+    return db_fetch_row("SELECT * FROM `tbl_suppliers` WHERE `supplierId`={$id}");
 }
 
 /**
@@ -48,7 +48,7 @@ function getManuById($id) {
  * @return int|string
  */
 function updateManu($data, $id) {
-    return db_update('tbl_manufacturers', $data, "`manufactureId` = {$id}");
+    return db_update('tbl_suppliers', $data, "`supplierId` = {$id}");
 }
 
 /**
@@ -58,5 +58,5 @@ function updateManu($data, $id) {
  * @return int|string
  */
 function deleteManu($id) {
-    return db_delete('tbl_manufacturers', "`manufactureId` = {$id}");
+    return db_delete('tbl_suppliers', "`supplierId` = {$id}");
 }

@@ -34,8 +34,7 @@
                         <select name="role" id="role">
                             <option value="">-- Chọn quyền --</option>
                             <option value="1">Quản lý</option>
-                            <option value="2">Biên tập viên</option>
-                            <option value="3">Cộng tác viên</option>
+                            <option value="2">Nhân viên</option>
                         </select>
                         <?php form_error('role') ?>
                         <?php form_error('account') ?>

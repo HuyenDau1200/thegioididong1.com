@@ -35,7 +35,6 @@ function getAllCategories() {
  * @param $char
  * @return array
  */
-$result = array();
 function categoriesRecusive($id = 0, $char = '') {
     $data = getAllCategories();
     $result = [];
@@ -72,12 +71,12 @@ function categoriesRecusive($id = 0, $char = '') {
  * @return array
  */
 function listManuOptions() {
-    $listManu = db_fetch_array("SELECT * FROM `tbl_manufacturers`");
+    $listManu = db_fetch_array("SELECT * FROM `tbl_suppliers`");
     $result = [];
     foreach ($listManu as $item) {
         $result[] = [
-            'value' => $item['manufactureId'],
-            'label' => $item['manufactureName']
+            'value' => $item['supplierId'],
+            'label' => $item['supplierName']
         ];
     }
     return $result;
@@ -139,4 +138,13 @@ function updateProduct($data, $id) {
  */
 function deleteProduct($id) {
     return db_delete('tbl_products', "`productId` = {$id}");
+}
+
+/**
+ * Count Product In Stock.
+ *
+ * @return int|string
+ */
+function countProductInstock() {
+    return db_num_rows("SELECT * FROM `tbl_products` WHERE `qty` > 0");
 }

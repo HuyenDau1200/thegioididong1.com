@@ -1,0 +1,39 @@
+ul.dashboard {
+    display: flex;
+}
+ul.dashboard li {
+    padding: 20px;
+    margin: 20px 45px;
+    background: red;
+    border-radius: 5px;
+    color: white;
+    margin-top: 0px;
+    width: 18%;
+}
+ul.dashboard li:first-child{
+    margin-left: 20px;
+}
+ul.dashboard .count-orders {
+    background: #e36767;
+}
+ul.dashboard .products {
+    background: #6786e3;
+}
+ul.dashboard .sales-day {
+    background: #39b7a6;
+}
+ul.dashboard .sales-month {
+    background: #6e86df;
+}
+.number {
+    padding-top: 10px;
+}
+.number span{
+    font-size: 25px;
+    font-weight: bold;
+}
+.desc {
+    color: #000000;
+    font-size: 14px;
+    padding-top: 10px;
+}

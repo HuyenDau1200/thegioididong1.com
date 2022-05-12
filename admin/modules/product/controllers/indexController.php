@@ -30,6 +30,7 @@ function indexAction() {
     $data['page'] = $page;
     $data['start'] = $start;
     $data['sumProducts'] = $total_row;
+    $data['countProductsInStock'] = countProductInstock();
     load_view('index', $data);
 }
 
@@ -146,7 +147,7 @@ function addAction() {
                 'createdAt' => date('Y-m-d H:i:s', time()),
                 'updatedAt' => date('Y-m-d H:i:s', time()),
                 'catId' => $catId,
-                'manufactureId' => $manufacturerId,
+                'supplierId' => $manufacturerId,
                 'colorId' => $colorId
             ];
             addProduct($product);
@@ -265,7 +266,7 @@ function updateAction() {
                 'createdAt' => date('Y-m-d H:i:s', time()),
                 'updatedAt' => date('Y-m-d H:i:s', time()),
                 'catId' => $catId,
-                'manufactureId' => $manufacturerId,
+                'supplierId' => $manufacturerId,
                 'colorId' => $colorId
             ];
             updateProduct($product, $id);

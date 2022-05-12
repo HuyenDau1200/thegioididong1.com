@@ -80,8 +80,8 @@ get_header();
                                 <span class="old"><?= currency_format($product['price'])?></span>
                             </div>
                             <div class="action clearfix">
-                                <a href="?page=cart" title="" class="add-cart fl-left">Thêm giỏ hàng</a>
-                                <a href="?page=checkout" title="" class="buy-now fl-right">Mua ngay</a>
+                                <a href="?mod=cart" title="" class="add-cart fl-left">Thêm giỏ hàng</a>
+                                <a href="?mod=cart&action=checkout&id=<?= $product['productId']?>" title="" class="buy-now fl-right">Mua ngay</a>
                             </div>
                         </li>
                         <?php } ?>
@@ -108,7 +108,7 @@ get_header();
                             </div>
                             <div class="action clearfix">
                                 <a href="?mod=cart" title="Thêm giỏ hàng" class="add-cart fl-left">Thêm giỏ hàng</a>
-                                <a href="?mod=order" title="Mua ngay" class="buy-now fl-right">Mua ngay</a>
+                                <a href="?mod=cart&action=checkout&id=<?= $phone['productId']?>" title="Mua ngay" class="buy-now fl-right">Mua ngay</a>
                             </div>
                         </li>
                         <?php } ?>
@@ -135,8 +135,8 @@ get_header();
                                 <span class="old"><?= currency_format($laptop['price'])?></span>
                             </div>
                             <div class="action clearfix">
-                                <a href="?page=cart" title="Thêm giỏ hàng" class="add-cart fl-left">Thêm giỏ hàng</a>
-                                <a href="?page=checkout" title="Mua ngay" class="buy-now fl-right">Mua ngay</a>
+                                <a href="?mod=cart" title="Thêm giỏ hàng" class="add-cart fl-left">Thêm giỏ hàng</a>
+                                <a href="?mod=cart&action=checkout&id=<?= $laptop['productId']?>" title="Mua ngay" class="buy-now fl-right">Mua ngay</a>
                             </div>
                         </li>
                         <?php }?>

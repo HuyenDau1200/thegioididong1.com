@@ -13,21 +13,11 @@
                 <div class="section-detail">
                     <div class="filter-wp clearfix">
                         <ul class="post-status fl-left">
-                            <li class="all"><a href="">Tất cả <span class="count">(<?php echo sum_team()?>)</span></a> |</li>
+                            <li class="all"><a href="">Tất cả <span class="count">(<?php echo sum_team()?>)</span></a></li>
                         </ul>
                         <form method="GET" class="form-s fl-right">
                             <input type="text" name="s" id="s">
                             <input type="submit" name="sm_s" value="Tìm kiếm">
-                        </form>
-                    </div>
-                    <div class="actions">
-                        <form method="GET" action="" class="form-actions">
-                            <select name="actions">
-                                <option value="0">Tác vụ</option>
-                                <option value="1">Chỉnh sửa</option>
-                                <option value="2">Bỏ vào thủng rác</option>
-                            </select>
-                            <input type="submit" name="sm_action" value="Áp dụng">
                         </form>
                     </div>
                     <div class="table-responsive">
@@ -67,9 +57,9 @@
                                     <td><span class="tbody-text"><?= $user['role']?></span></td>
                                     <td class="clearfix">
                                         <ul class="list-operation">
-                                            <li><a href="?mod=users&controller=team&action=update&id=<?= $user['user_id']?>" title="Cập nhật thông tin" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
-                                            <li><a href="?mod=users&controller=team&action=reset&id=<?= $user['user_id']?>" title="Đổi mật khẩu" class="edit"><i class="fa fa-exchange" aria-hidden="true"></i></a></li>
-                                            <li><a href="?mod=users&controller=team&action=delete&id=<?= $user['user_id']?>" title="Xóa" class="delete"><i class="fa fa-trash" aria-hidden="true"></i></a></li>
+                                            <li><a href="?mod=users&controller=team&action=update&id=<?= $user['userId']?>" title="Cập nhật thông tin" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                            <li><a href="?mod=users&controller=team&action=reset&id=<?= $user['userId']?>" title="Đổi mật khẩu" class="edit"><i class="fa fa-exchange" aria-hidden="true"></i></a></li>
+                                            <li><a href="?mod=users&controller=team&action=delete&id=<?= $user['userId']?>" title="Xóa" class="delete"><i class="fa fa-trash" aria-hidden="true"></i></a></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -79,6 +69,7 @@
                             <tfoot>
                             </tfoot>
                         </table>
+                        <p><strong>Role = 1 - Admin, 2 - Nhân viên</strong></p>
                     </div>
                 </div>
             </div>

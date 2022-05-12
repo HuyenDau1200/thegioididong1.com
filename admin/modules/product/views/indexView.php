@@ -13,20 +13,13 @@
                 <div class="section-detail">
                     <div class="filter-wp clearfix">
                         <ul class="post-status fl-left">
-                            <li class="all"><a href="">Tất cả <span class="count">(<?= $sumProducts ?>)</span></a></li>
+                            <li class="all"><a href="?mod=product">Tất cả <span class="count">(<?= $sumProducts ?>) |</span></a></li>
+                            <li class="in-stock"><a href="">Còn hàng <span class="count">(<?= $countProductsInStock ?>) |</span></a></li>
+                            <li class="out-of-stock"><a href="">Hết hàng <span class="count">(<?= $sumProducts - $countProductsInStock ?>)</span></a></li>
                         </ul>
                         <form method="GET" class="form-s fl-right">
                             <input type="text" name="s" id="s">
                             <input type="submit" name="sm_s" value="Tìm kiếm">
-                        </form>
-                    </div>
-                    <div class="actions">
-                        <form method="GET" action="" class="form-actions">
-                            <select name="actions">
-                                <option value="">Tác vụ</option>
-                                <option value="1">Xóa</option>
-                            </select>
-                            <input type="submit" name="sm_action" value="Áp dụng">
                         </form>
                     </div>
                     <div class="table-responsive">
@@ -74,7 +67,7 @@
                                 <td><span class="tbody-text"><?= $product['createdAt']?></span></td>
                                 <td><span class="tbody-text"><?= $product['updatedAt']?></span></td>
                                 <td><span class="tbody-text"><?= $product['catId']?></span></td>
-                                <td><span class="tbody-text"><?= $product['manufactureId']?></span></td>
+                                <td><span class="tbody-text"><?= $product['supplierId']?></span></td>
                                 <td><span class="tbody-text"><?= $product['colorId']?></span></td>
                                 <td class="clearfix">
                                     <ul class="list-operation">

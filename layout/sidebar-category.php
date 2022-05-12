@@ -48,77 +48,40 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><input type="radio" name="r-price"></td>
-                        <td>Dưới 500.000đ</td>
+                        <td><input type="radio" name="r-price" value="1"></td>
+                        <td>Dưới 1.000.000đ</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="r-price"></td>
-                        <td>500.000đ - 1.000.000đ</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="r-price"></td>
+                        <td><input type="radio" name="r-price" value="2"></td>
                         <td>1.000.000đ - 5.000.000đ</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="r-price"></td>
+                        <td><input type="radio" name="r-price" value="3"></td>
                         <td>5.000.000đ - 10.000.000đ</td>
                     </tr>
                     <tr>
-                        <td><input type="radio" name="r-price"></td>
+                        <td><input type="radio" name="r-price" value="4"></td>
                         <td>Trên 10.000.000đ</td>
                     </tr>
                     </tbody>
                 </table>
+               <!-- <?php if (!empty(getColorOptions())) { ?>
                 <table>
                     <thead>
-                    <tr>
-                        <td colspan="2">Hãng</td>
-                    </tr>
+                        <tr>
+                            <td colspan="2">Màu sắc</td>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><input type="radio" name="r-brand"></td>
-                        <td>Acer</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="r-brand"></td>
-                        <td>Apple</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="r-brand"></td>
-                        <td>Hp</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="r-brand"></td>
-                        <td>Lenovo</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="r-brand"></td>
-                        <td>Samsung</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="r-brand"></td>
-                        <td>Toshiba</td>
-                    </tr>
+                    <?php foreach (getColorOptions() as $color) {?>
+                        <tr>
+                            <td><input type="radio" name="r-color" value="<?= $color['colorId']?>"></td>
+                            <td><?= $color['colorName']?></td>
+                        </tr>
+                    <?php } ?>
                     </tbody>
                 </table>
-                <table>
-                    <thead>
-                    <tr>
-                        <td colspan="2">Loại</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="radio" name="r-price"></td>
-                        <td>Điện thoại</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="r-price"></td>
-                        <td>Laptop</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <?php } ?> -->
             </form>
         </div>
     </div>

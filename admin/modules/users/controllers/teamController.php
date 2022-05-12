@@ -11,7 +11,7 @@ function indexAction()
     //Xuất dữ liệu
     $num_rows = sum_team();
     //Số lượng bản ghi trên trang
-    $num_per_page = 2;
+    $num_per_page = 5;
     //Tống số lượng bản ghi
     $total_row = $num_rows;
     //Tổng số trang
@@ -23,7 +23,7 @@ function indexAction()
     $start = ($page - 1) * $num_per_page;
 
     // $list_users = db_fetch_array("SELECT * FROM `tbl_users` LIMIT {$start},{$num_per_page}");
-    $list_team_manager = get_users($start, $num_per_page,"WHERE `role` IN ('1','2','3')");
+    $list_team_manager = get_users($start, $num_per_page,"WHERE `role` IN ('1','2')");
     //$list_team_manager = get_list_team_manager();
     $data['list_team_manager'] = $list_team_manager;
     $data['num_page']=$num_page;

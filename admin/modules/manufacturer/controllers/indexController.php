@@ -50,7 +50,7 @@ function addAction() {
 
         if (empty($error)) {
             $data = [
-                'manufactureName' => $name,
+                'supplierName' => $name,
                 'address' => $address,
                 'createdAt' => date('Y-m-d H:i:s', time()),
                 'updatedAt' => date('Y-m-d H:i:s', time())
@@ -80,7 +80,7 @@ function updateAction() {
 
         if (empty($error)) {
             $data = [
-                'manufactureName' => $name,
+                'supplierName' => $name,
                 'address' => $address,
                 'updatedAt' => date('Y-m-d H:i:s', time())
             ];

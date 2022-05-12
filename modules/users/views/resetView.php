@@ -1,5 +1,6 @@
 <?php get_header()?>
 <div id="main-content-wp" class="change-pass-page">
+    <div class="wp-inner">
     <div class="section" id="title-page">
         <div class="clearfix">
             <h3 id="index" class="fl-left">Đổi mật khẩu khách hàng</h3>
@@ -25,6 +26,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <?php get_footer()?>

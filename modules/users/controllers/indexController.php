@@ -3,8 +3,9 @@ function construct()
 {
     load_model('index');
     load('lib', 'validation');
-    //load('helper', 'users');
     load('lib', 'email');
+    load('helper', 'carts');
+    load('helper', 'format');
 }
 
 /**
@@ -70,7 +71,6 @@ function loginAction()
 function regAction()
 {
     global $error, $firstName, $lastName, $email, $phoneNumber, $address, $username, $password;
-    // echo send_mail('anhthongdau861@gmail.com','Đậu Thiện Thông','Kích hoạt khóa học PHP Master',"<a href='http://unitop.vn'>Kích hoạt</a>");
     if (isset($_POST['btn-reg'])) {
         $error = [];
 
@@ -161,18 +161,27 @@ function regAction()
                 add_user($data);
                 #Gửi mã vào email
                 $link_active = base_url("?mod=users&action=active&active_token={$active_token}");
-                $content = "<p>Chào bạn {$firstName}.' '.{$lastName}</p>
+                $content = "<p>Chào bạn {$firstName} {$lastName}</p>
                 <p>Chúc mừng bạn đã trở thành khách hàng của chúng tôi</p>
                 <p>Vui lòng click vào link sau: <a href='{$link_active}'>Kích hoạt</a> để kích hoạt tài khoản!</p>
                 <p>Team support from thegioididong.com</p>";
                 send_mail($email, $firstName. " ".$lastName , '[Thế giới di động] Kích hoạt tài khoản', $content);
-                redirect("?mod=users&action=login");
+                redirect("?mod=users&action=messageActive");
             } else {
                 $error['account'] = "Tên đăng nhập hoặc email đã tồn tại!";
             }
         }
     }
     load_view('reg');
+}
+
+/**
+ * Message Active.
+ *
+ * @return void
+ */
+function messageActiveAction() {
+    load_view("messageActive");
 }
 
 /**
@@ -224,7 +233,7 @@ function loss_passAction()
             $link_send_to_email = base_url("?mod=users&action=set_new_pass&reset_pass_token={$reset_pass_token}");
             $content = "
                 <p>Bạn đã quên mật khẩu?</p>
-                <p>Vui lòng click vào link sau: <a href='{$link_send_to_email}'>{$link_send_to_email}</a> để xác nhận lấy lại mật khẩu!</p>";
+                <p>Vui lòng click <a href='{$link_send_to_email}'>tại đây</a> để xác nhận lấy lại mật khẩu!</p>";
             send_mail($email, '', '[Thế giới di động] Lấy lại mật khẩu', $content);
             redirect("?mod=users&action=messageLossPass");
         } else {
@@ -301,6 +310,9 @@ function successResetPassAction() {
     load_view('successResetPass');
 }
 
+/**
+ * @return void
+ */
 function updateAccountAction() {
     global $error, $lastName, $firstName, $phone_number, $address;
     if (isset($_POST['btn-update'])) {

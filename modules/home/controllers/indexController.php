@@ -5,6 +5,7 @@ function construct() {
     load_model('index');
     load('helper', 'format');
     //load('helper', 'categories');
+    load('helper', 'carts');
 }
 
 #Load model

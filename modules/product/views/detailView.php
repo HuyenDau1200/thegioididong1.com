@@ -7,10 +7,13 @@ get_header();
             <div class="secion-detail">
                 <ul class="list-item clearfix">
                     <li>
-                        <a href="" title="">Trang chủ</a>
+                        <a href="?" title="">Trang chủ</a>
                     </li>
                     <li>
                         <a href="" title=""><?= $catTitle ?></a>
+                    </li>
+                    <li>
+                        <a href="" title=""><?= $infoProduct['productName'] ?></a>
                     </li>
                 </ul>
             </div>
@@ -28,16 +31,13 @@ get_header();
                             </a>
                         </div>
                     </div>
-                    <div class="thumb-respon-wp fl-left">
-                        <img src="public/images/img-pro-01.png" alt="">
-                    </div>
                     <div class="info fl-right">
                         <h3 class="product-name"><?= $infoProduct['productName'] ?></h3>
                         <div class="desc">
                             <?= $infoProduct['productDesc'] ?>
                         </div>
                         <div class="num-product">
-                            <span class="title">Sản phẩm: </span>
+                            Sản phẩm:
                             <?php if($infoProduct['qty'] > 0) {?>
                             <span class="status">Còn <?= $infoProduct['qty']?> sản phẩm</span>
                             <?php } else {?>
@@ -45,12 +45,7 @@ get_header();
                             <?php }?>
                         </div>
                         <p class="price"><?= currency_format($infoProduct['promotionPrice'])?></p>
-                        <div id="num-order-wp">
-                            <a title="" id="minus"><i class="fa fa-minus"></i></a>
-                            <input type="text" name="num-order" value="1" id="num-order">
-                            <a title="" id="plus"><i class="fa fa-plus"></i></a>
-                        </div>
-                        <a href="?mod=cart" title="Thêm giỏ hàng" class="add-cart">Thêm giỏ hàng</a>
+                        <a href="<?= $infoProduct['url_add_cart'] ?>" title="Thêm giỏ hàng" class="add-cart">Thêm giỏ hàng</a>
                     </div>
                 </div>
             </div>
@@ -71,17 +66,17 @@ get_header();
                     <ul class="list-item">
                         <?php foreach ($listProductRelated as $product) {?>
                         <li>
-                            <a href="" title="" class="thumb">
+                            <a href="?mod=product&action=detail&id=<?= $product['productId'] ?>" title="" class="thumb">
                                 <img src="admin/public/images/<?= $product['productThumb']?>">
                             </a>
-                            <a href="" title="" class="product-name"><?= $product['productName']?></a>
+                            <a href="?mod=product&action=detail&id=<?= $product['productId'] ?>" title="" class="product-name"><?= $product['productName']?></a>
                             <div class="price">
                                 <span class="new"><?= currency_format($product['promotionPrice'])?></span>
                                 <span class="old"><?= currency_format($product['price'])?></span>
                             </div>
                             <div class="action clearfix">
-                                <a href="?mod=cart" title="" class="add-cart fl-left">Thêm giỏ hàng</a>
-                                <a href="?mod=checkout" title="" class="buy-now fl-right">Mua ngay</a>
+                                <a href="?mod=cart&action=add&id=<?= $product['productId']?>" title="" class="add-cart fl-left">Thêm giỏ hàng</a>
+                                <a href="?mod=cart&action=checkout" title="" class="buy-now fl-right">Mua ngay</a>
                             </div>
                         </li>
                         <?php }?>
@@ -90,7 +85,7 @@ get_header();
                 </div>
             </div>
         </div>
-        <?php get_sidebar('product') ?>
+        <?php get_sidebar() ?>
     </div>
 </div>
 <?php get_footer()?>

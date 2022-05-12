@@ -5,7 +5,7 @@
         <div id="content" class="fl-right">
             <div class="section" id="title-page">
                 <div class="clearfix">
-                    <h3 id="index" class="fl-left">Chỉnh sửa danh mục</h3>
+                    <h3 id="index" class="fl-left">Chỉnh sửa sản phẩm</h3>
                 </div>
             </div>
             <div class="section" id="detail-page">
@@ -46,7 +46,7 @@
                         <select name="manufacturer">
                             <option value="" >-- Chọn nhà cung cấp --</option>
                             <?php foreach ($listManuOptions as $option) { ?>
-                                <option value="<?= $option['value'] ?>" <?php if(!empty($infoProduct['manufactureId']) && $infoProduct['manufactureId'] == $option['value']) echo "selected='selected'"?> ><?= $option['label'] ?></option>
+                                <option value="<?= $option['value'] ?>" <?php if(!empty($infoProduct['supplierId']) && $infoProduct['supplierId'] == $option['value']) echo "selected='selected'"?> ><?= $option['label'] ?></option>
                             <?php } ?>
                         </select>
                         <?php form_error('manufacturer') ?>

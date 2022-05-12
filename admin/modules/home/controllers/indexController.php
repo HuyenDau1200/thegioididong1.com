@@ -3,6 +3,7 @@
 function construct() {
 //    echo "Dùng chung, load đầu tiên";
      load_model('index');
+     load('helper', 'format');
 }
 
 #Load model
@@ -10,6 +11,8 @@ function construct() {
 #Load lib
 #load helper
 function indexAction(){
-    redirect("?mod=product");
-    load_view('index');
+    $data['sumOrder'] = sumOrders();
+    $data['sumProducts'] = sumProducts();
+    $data['listOrder'] = listTopOrder();
+    load_view('index', $data);
 }

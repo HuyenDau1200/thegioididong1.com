@@ -27,3 +27,12 @@ function getListCat() {
 function countItem($catId) {
     return db_num_rows("SELECT * FROM `tbl_categories` WHERE `parentId` = {$catId}");
 }
+
+/**
+ * Get All Colors.
+ *
+ * @return array
+ */
+function getColorOptions() {
+    return db_fetch_array("SELECT * FROM `tbl_colors`");
+}

@@ -5,6 +5,7 @@ function construct() {
     load('helper', 'format');
     load('helper', 'categories');
     load('helper', 'product');
+    load('helper', 'carts');
 }
 
 function detailAction(){

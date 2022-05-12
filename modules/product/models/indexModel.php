@@ -20,17 +20,21 @@ function getCatTitle($productId) {
  * @return array|false|string[]|null
  */
 function infoProduct($productId) {
-    return db_fetch_row("SELECT * FROM `tbl_products` WHERE `productId`={$productId}");
+    $sql = "SELECT * FROM `tbl_products` WHERE `productId`={$productId}";
+    $infoProduct = db_fetch_row($sql);
+    $infoProduct['url_add_cart'] = "?mod=cart&action=add&id={$productId}";
+    return $infoProduct;
 }
 
 /**
- * Get List Product Same Category
+ * Get Products Related.
  *
- * @param $catId
+ * @param $productId
  * @return array
  */
 function getProductsRelated($productId) {
-    $infoProduct = db_fetch_row("SELECT * FROM `tbl_products` WHERE `productId`={$productId}");
+    $sql = "SELECT * FROM `tbl_products` WHERE `productId`={$productId}";
+    $infoProduct = db_fetch_row($sql);
     return db_fetch_array("SELECT * FROM `tbl_products` WHERE `catId`={$infoProduct['catId']}");
 }
 

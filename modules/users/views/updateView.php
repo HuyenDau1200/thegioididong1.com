@@ -1,6 +1,7 @@
 <?php get_header();
 ?>
 <div id="main-content-wp" class="info-account-page">
+    <div class="wp-inner">
     <div class="section" id="title-page">
         <div class="clearfix">
             <a href="?mod=users&controller=team&action=add" title="" id="add-new" class="fl-left">Thêm mới</a>
@@ -37,6 +38,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <?php get_footer()?>

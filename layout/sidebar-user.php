@@ -1,6 +1,9 @@
 <div id="sidebar" class="fl-left">
     <ul id="list-cat">
         <li>
+            <a href="?mod=users&controller=order&action=viewOrder" title="">Danh sách đơn hàng</a>
+        </li>
+        <li>
             <a href="?mod=users&action=changePass" title="">Đổi mật khẩu</a>
         </li>
         <li>

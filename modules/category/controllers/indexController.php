@@ -3,6 +3,7 @@ function construct() {
     load_model('index');
     load('helper', 'format');
     load('helper', 'categories');
+    load('helper', 'carts');
 }
 
 function indexAction() {
@@ -18,8 +19,7 @@ function indexAction() {
         $numPage = ceil($totalRow / $numPerPage);
         $data['listProduct'] = getListProductByParentId($id, $start, $numPerPage);
         $data['numPage'] = $numPage;
-    }
-    else {
+    } else {
         $data['listProduct'] = getProductsByCat($id, $start, $numPerPage);
         $data['numPage'] = $numPage;
     }
